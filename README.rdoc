@@ -10,11 +10,7 @@ Net recorder hooks into NetHTTP to record the outgoing request path and method a
 
 == Install
 
-I'm still learning how to host gems properly on gemcutter, so for now just install from the source.
-  
-  >> git clone http://github.com/tombombadil/netrecorder.git
-  >> cd netrecorder
-  >> rake install
+  gem install netrecorder
   
 == Usage
   
