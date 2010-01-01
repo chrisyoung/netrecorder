@@ -32,7 +32,7 @@ Use recorded cache with fakeweb:
 
 == Cucumber Example
 
-see http://cukes.info/ for more info on testing with Cucumber
+see http://cukes.info for more info on testing with Cucumber
   
 # features/support/env.rb
   NetRecorder.config do |config|
