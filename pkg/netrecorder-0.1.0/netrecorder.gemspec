@@ -17,7 +17,9 @@ Gem::Specification.new do |s|
   s.rubyforge_project = %q{netrecorder}
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Recorde network resonses for easy stubbing of external calls}
-
+  s.signing_key = '/Volumes/Secure/Certificates/gem-private_key.pem'
+  s.cert_chain  = ['gem-public_cert.pem']
+  
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3

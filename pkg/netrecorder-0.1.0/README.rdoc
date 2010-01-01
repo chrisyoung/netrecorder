@@ -2,7 +2,7 @@
 
 Record network responses for easy stubbing of external calls.
 
-Net recorder hooks into NetHTTP to record the outgoing request path and method and caches the response.  Then you can switch on fakeweb and it will use the cache from the recording. 
+Net recorder hooks into NetHTTP to record the outgoing request path and method and caches the response.  Then you can switch on fakeweb and it will use the cache from the recording.
 
 == Requirements
 
