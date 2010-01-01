@@ -60,4 +60,4 @@ cache mode
 == Todo
 
   * RDocs
-  * Host on Gemcutter
+  * Tests
