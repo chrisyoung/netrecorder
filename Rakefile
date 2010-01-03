@@ -3,7 +3,7 @@ require 'rake'
 require 'echoe'
 
 Echoe.new('netrecorder', '0.1.0') do |p|
-  p.description    = "Record network resonses for easy stubbing of external calls"
+  p.description    = "Record network responses for easy stubbing of external calls"
   p.url            = "http://github.com/tombombadil/netrecorder"
   p.author         = "Chris Young"
   p.email          = "beesucker@gmail.com"

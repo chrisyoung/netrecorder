@@ -1,3 +1,4 @@
+# Extend Net:HTTP to record requests and responses
 module NetRecorder
   module NetHTTP
     def self.extended(base)
