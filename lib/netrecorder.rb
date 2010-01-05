@@ -24,9 +24,9 @@ module NetRecorder
     @@configured ||= nil
     @@config = Config.new
     yield @@config
+    record_net_calls
     clear_cache!      if @@config.clear_cache
     fakeweb           if @@config.fakeweb
-    record_net_calls  if @@config.record_net_calls
   end
   
   # returns true if record_net_calls is set to true in the config

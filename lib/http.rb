@@ -31,8 +31,8 @@ module NetRecorder
   end
 end
 
-# Loads the yaml from the cache file and returns a hash
-def fakes_cache
+
+def fakes_cache #:nodoc:
   fakes =
   if File.exist?(NetRecorder.cache_file)
     File.open(NetRecorder.cache_file, "r") do |f|
