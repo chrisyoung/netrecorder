@@ -1,6 +1,8 @@
 Manifest
 README.rdoc
 Rakefile
+features/manage_cache.feature
+features/step_definitions/manage_cache_steps.rb
 lib/config.rb
 lib/http.rb
 lib/http_header.rb
