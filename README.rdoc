@@ -58,6 +58,4 @@ cache mode
   >> rake features 
   
 == Todo
-
-  * RDocs
   * Tests
