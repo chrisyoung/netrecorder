@@ -13,8 +13,15 @@ module NetRecorder
     @@config.cache_file
   end
   
+  def self.fakes
+    File.open(@@config.cache_file, "r") do |f|
+      YAML.load(f.read)
+    end if File.exist?(@@config.cache_file)
+  end
+  
   # configure netrecorder
   def self.config
+    @@configured ||= nil
     @@config = Config.new
     yield @@config
     clear_cache!      if @@config.clear_cache
@@ -37,15 +44,12 @@ module NetRecorder
     if File.exist?(@@config.cache_file)
       File.delete(@@config.cache_file)
     end
+    Net::HTTP.clear_netrecorder_cache!
   end
   
 private
   # load the cache and register all of the urls with fakeweb
   def self.fakeweb
-    fakes = File.open(@@config.cache_file, "r") do |f|
-       YAML.load(f.read)
-    end
-
     fakes.each do |method, value|
       value.each do |url, body|
         path = url
@@ -56,7 +60,9 @@ private
   
   # extend NET library to record requests and responses
   def self.record_net_calls
+    return if @@configured
     Net::HTTP.extend(NetHTTP)
     Net::HTTPHeader.extend(NetHTTPHeader)
+    @@configured = true
   end
 end

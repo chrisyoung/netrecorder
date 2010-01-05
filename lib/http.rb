@@ -4,7 +4,7 @@ module NetRecorder
     def self.extended(base) #:nodoc:
       base.class_eval do
         alias :alias_for_request :request
-        @@fakes = fakes_cache || {'GET' => {}, 'POST' => {}, 'DELETE' => {}, 'PUT' => {}}
+        @@fakes = fakes_cache || init_netrecorder_cache
 
         # request is overridden and the request and response are stored as a hash that can be written to a cache file
         def request(req, body = nil, &block)
@@ -22,6 +22,17 @@ module NetRecorder
         def self.fakes
           @@fakes
         end
+        
+        def self.clear_netrecorder_cache!
+          @@fakes = init_netrecorder_cache
+        end
+
+
+
+        def init_netrecorder_cache
+          self.class.init_netrecorder_cache
+        end
+        
       end
     end
   end
@@ -38,4 +49,8 @@ def fakes_cache
   
   return fakes if fakes.class == Hash
   nil
+end
+
+def init_netrecorder_cache
+  {'GET' => {}, 'POST' => {}, 'DELETE' => {}, 'PUT' => {}}
 end
