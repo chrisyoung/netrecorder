@@ -55,7 +55,4 @@ record mode
   >> rake features RECORD_NET_CALLS=true
 
 cache mode
-  >> rake features 
-  
-== Todo
-  * Tests
+  >> rake features
