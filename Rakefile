@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rake'
 require 'echoe'
 
-Echoe.new('netrecorder', '0.1.0') do |p|
+Echoe.new('netrecorder', '0.1.1') do |p|
   p.description    = "Record network responses for easy stubbing of external calls"
   p.url            = "http://github.com/tombombadil/netrecorder"
   p.author         = "Chris Young"

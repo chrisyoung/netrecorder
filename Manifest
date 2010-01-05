@@ -4,3 +4,4 @@ Rakefile
 lib/http.rb
 lib/http_header.rb
 lib/netrecorder.rb
+netrecorder.gemspec

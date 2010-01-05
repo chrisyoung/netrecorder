@@ -4,7 +4,12 @@ module NetRecorder
     def self.extended(base)
       base.class_eval do
         alias :alias_for_request :request
-        @@fakes = {'GET' => {}, 'POST' => {}, 'DELETE' => {}, 'PUT' => {}}
+        @@fakes = nil
+
+        @@fakes = File.open(NetRecorder.cache_file, "r") do |f|
+           YAML.load(f.read)
+        end if File.exist?(NetRecorder.cache_file)
+        @@fakes = {'GET' => {}, 'POST' => {}, 'DELETE' => {}, 'PUT' => {}} unless @@fakes && @@fakes.class == Hash
         def request(req, body = nil, &block)
           response = alias_for_request(req, body)
           path = "http://#{req.bauth if req.bauth}#{req['host']}#{req.path}"
