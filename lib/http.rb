@@ -23,16 +23,9 @@ module NetRecorder
           @@fakes
         end
         
-        def self.clear_netrecorder_cache!
+        def self.clear_netrecorder_cache! #:nodoc:
           @@fakes = init_netrecorder_cache
         end
-
-
-
-        def init_netrecorder_cache
-          self.class.init_netrecorder_cache
-        end
-        
       end
     end
   end
@@ -51,6 +44,7 @@ def fakes_cache
   nil
 end
 
-def init_netrecorder_cache
+        
+def init_netrecorder_cache #:nodoc:
   {'GET' => {}, 'POST' => {}, 'DELETE' => {}, 'PUT' => {}}
 end
