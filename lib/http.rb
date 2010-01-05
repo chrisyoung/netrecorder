@@ -1,15 +1,12 @@
 # Extend Net:HTTP to record requests and responses
 module NetRecorder
   module NetHTTP
-    def self.extended(base)
+    def self.extended(base) #:nodoc:
       base.class_eval do
         alias :alias_for_request :request
-        @@fakes = nil
+        @@fakes = fakes_cache || {'GET' => {}, 'POST' => {}, 'DELETE' => {}, 'PUT' => {}}
 
-        @@fakes = File.open(NetRecorder.cache_file, "r") do |f|
-           YAML.load(f.read)
-        end if File.exist?(NetRecorder.cache_file)
-        @@fakes = {'GET' => {}, 'POST' => {}, 'DELETE' => {}, 'PUT' => {}} unless @@fakes && @@fakes.class == Hash
+        # request is overridden and the request and response are stored as a hash that can be written to a cache file
         def request(req, body = nil, &block)
           response = alias_for_request(req, body)
           path = "http://#{req.bauth if req.bauth}#{req['host']}#{req.path}"
@@ -21,10 +18,24 @@ module NetRecorder
           return response
         end
         
+        # returns the fakes hash
         def self.fakes
           @@fakes
         end
       end
     end
   end
+end
+
+# Loads the yaml from the cache file and returns a hash
+def fakes_cache
+  fakes =
+  if File.exist?(NetRecorder.cache_file)
+    File.open(NetRecorder.cache_file, "r") do |f|
+      YAML.load(f.read)
+    end 
+  end
+  
+  return fakes if fakes.class == Hash
+  nil
 end
