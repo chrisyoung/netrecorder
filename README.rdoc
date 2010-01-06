@@ -23,6 +23,10 @@ Record all responses:
     config.record_net_calls = true
   end
 
+Save recorded responses:
+
+  NetRecorder.cache!
+
 Use recorded cache with fakeweb:
   
   NetRecorder.config do |config|
