@@ -1,6 +1,7 @@
 # NetRecorder allows you to record requests and responses from the web
 
 require 'fakeweb'
+require 'yaml'
 require "#{File.dirname(__FILE__)}/http"
 require "#{File.dirname(__FILE__)}/http_header"
 require "#{File.dirname(__FILE__)}/config"
