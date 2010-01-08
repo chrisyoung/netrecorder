@@ -50,11 +50,8 @@ module NetRecorder
 private
   # load the cache and register all of the urls with fakeweb
   def self.fakeweb
-    fakes.each do |method, value|
-      value.each do |url, body|
-        path = url
-        FakeWeb.register_uri(method.downcase.to_sym, url, body)
-      end
+    fakes.each do |fake|
+      FakeWeb.register_uri(fake[1][:method].downcase.to_sym, fake[0], fake[1][:body])
     end
   end
   

@@ -22,7 +22,7 @@ Given /^(?:a clear cache|I delete the cache)$/ do
 end
 
 Then /^the cache should contain the example body$/ do
-  NetRecorder.fakes['GET']['http://www.example.com/'].first[:body].should == 
+  NetRecorder.fakes.first[1][:body].first[:body].should == 
 %Q{<HTML>
 <HEAD>
   <TITLE>Example Web Page</TITLE>
@@ -50,7 +50,7 @@ Then /^the cache should be empty$/ do
 end
 
 Then /^the example entry should have (.+) responses$/ do |count|
-  NetRecorder.fakes['GET']['http://www.example.com/'].length.should == count.to_i
+  NetRecorder.fakes.first[1][:body].length.should == count.to_i
 end
 
 Given /^I have turned on fakeweb$/ do
