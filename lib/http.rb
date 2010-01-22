@@ -13,6 +13,7 @@ module NetRecorder
           existing_fake = @@fakes.select {|fake| fake[0] == path && fake[1][:method] == req.method}.first
           existing_fake[1][:body] << {:body => response.body.to_s} and return response if existing_fake
           @@fakes << [path, {:method => req.method, :body => [{:body => response.body.to_s}]}]
+          yield response if block
           response
         end
         

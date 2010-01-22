@@ -27,6 +27,18 @@ And /^I visit "([^\"]*)"$/ do |url|
   Net::HTTP.get URI.parse(url)
 end
 
+When /^I visit "([^\"]*)" using a  Net::HTTP request with a block$/ do |url|
+  uri = URI.parse(url)
+  @last_response = Net::HTTP.new(uri.host, uri.port).start do |http|
+    http.get(uri.path.empty? ? '/' : uri.path)
+  end
+end
+
+Then /^the Net::HTTP request should return the response$/ do
+  @last_response.should_not be_nil
+  @last_response.body.should be_the_example_dot_com_response
+end
+
 Given /^(?:a clear cache|I delete the cache)$/ do  
   NetRecorder.clear_cache!
 end
