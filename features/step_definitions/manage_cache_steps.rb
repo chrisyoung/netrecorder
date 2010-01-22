@@ -23,8 +23,8 @@ And /^I save the cache$/ do
   NetRecorder.cache!
 end
 
-And /^I visit "([^\"]*)"$/ do |arg1|
-  Net::HTTP.get URI.parse('http://www.example.com/')
+And /^I visit "([^\"]*)"$/ do |url|
+  Net::HTTP.get URI.parse(url)
 end
 
 Given /^(?:a clear cache|I delete the cache)$/ do  
