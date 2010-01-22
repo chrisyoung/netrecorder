@@ -15,9 +15,11 @@ module NetRecorder
   end
   
   def self.fakes
-    File.open(@@config.cache_file, "r") do |f|
-      YAML.load(f.read)
-    end if File.exist?(@@config.cache_file)
+    if File.exist?(@@config.cache_file)
+      File.open(@@config.cache_file, "r") do |f|
+        YAML.load(f.read)
+      end
+    end || []
   end
   
   # configure netrecorder
