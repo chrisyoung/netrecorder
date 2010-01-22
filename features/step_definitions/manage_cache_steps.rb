@@ -2,6 +2,16 @@ require 'rubygems'
 require 'fakeweb'
 require "#{File.dirname(__FILE__)}/../../lib/netrecorder"
 
+module NetRecorderMatchers
+  def be_the_example_dot_com_response
+    simple_matcher("the example.com response") do |given|
+      given =~ /You have reached this web page by typing.*example\.com/
+    end
+  end
+end
+
+World(NetRecorderMatchers)
+
 Then "caching is turned on" do
   NetRecorder.config do |config|
     config.cache_file = File.join(File.dirname(__FILE__), '..', 'support', 'cache')
@@ -22,21 +32,7 @@ Given /^(?:a clear cache|I delete the cache)$/ do
 end
 
 Then /^the cache should contain the example body$/ do
-  NetRecorder.fakes.first[1][:body].first[:body].should == 
-%Q{<HTML>
-<HEAD>
-  <TITLE>Example Web Page</TITLE>
-</HEAD> 
-<body>  
-<p>You have reached this web page by typing &quot;example.com&quot;,
-&quot;example.net&quot;,
-  or &quot;example.org&quot; into your web browser.</p>
-<p>These domain names are reserved for use in documentation and are not available 
-  for registration. See <a href="http://www.rfc-editor.org/rfc/rfc2606.txt">RFC 
-  2606</a>, Section 3.</p>
-</BODY>
-</HTML>
-}
+  NetRecorder.fakes.first[1][:body].first[:body].should be_the_example_dot_com_response
 end
 
 Given /^a cached example page$/ do
