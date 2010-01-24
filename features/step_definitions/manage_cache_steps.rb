@@ -44,7 +44,7 @@ Given /^(?:a clear cache|I delete the cache)$/ do
 end
 
 Then /^the cache should contain the example body$/ do
-  NetRecorder.fakes.first[1][:body].first[:body].should be_the_example_dot_com_response
+  NetRecorder.fakes.first[1]['global'][:body].first[:body].should be_the_example_dot_com_response
 end
 
 Given /^a cached example page$/ do
@@ -58,7 +58,7 @@ Then /^the cache should be empty$/ do
 end
 
 Then /^the example entry should have (.+) responses$/ do |count|
-  NetRecorder.fakes.first[1][:body].length.should == count.to_i
+  NetRecorder.fakes.first[1]['global'][:body].length.should == count.to_i
 end
 
 Given /^I have turned on fakeweb$/ do
