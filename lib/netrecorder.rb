@@ -67,7 +67,6 @@ module NetRecorder
     
   # load the cache and register all of the urls with fakeweb
   def self.fakeweb(scope='global')
-    puts scope
     fakes.each do |fake|
       FakeWeb.register_uri(fake[1][scope][:method].downcase.to_sym, fake[0], fake[1][scope][:body]) if fake[1][scope]
     end
