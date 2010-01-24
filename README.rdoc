@@ -8,7 +8,7 @@ Net recorder hooks into NetHTTP to record the outgoing request path and method a
 
   gem install fakeweb
 
-== Install
+== Install 
 
   gem install netrecorder
   
