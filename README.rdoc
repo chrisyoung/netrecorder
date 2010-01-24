@@ -37,7 +37,8 @@ Use recorded cache with fakeweb:
 == Cucumber Example
 
 see http://cukes.info for more info on testing with Cucumber
-  # features/support/netrecorder.rb
+  # Find me in features/support/netrecorder.rb
+  
   NetRecorder.config do |config|
     config.cache_file = "#{File.dirname(__FILE__)}/../support/fakeweb"    
     if ENV['RECORD_WEB']
@@ -53,9 +54,9 @@ see http://cukes.info for more info on testing with Cucumber
       NetRecorder.cache!
     end
   end
-  
-record mode
+
+record mode (command line)
   >> rake features RECORD_NET_CALLS=true
 
-cache mode
+cache mode (command line)
   >> rake features
