@@ -38,31 +38,21 @@ Use recorded cache with fakeweb:
 
 see http://cukes.info for more info on testing with Cucumber
   
-# features/support/netrecorder.rb
-  NetRecorder.config do |config|
-    config.cache_file = "#{File.dirname(__FILE__)}/../support/fakeweb"    
-    if ENV['RECORD_WEB']
-      config.record_net_calls = true
-    else
-      FakeWeb.allow_net_connect = false
-    end
-  end 
-
-  at_exit do
-    if NetRecorder.recording?
-      NetRecorder.cache!
-    end
+NetRecorder.config do |config|
+  config.cache_file = "#{File.dirname(__FILE__)}/../support/fakeweb"    
+  if ENV['RECORD_WEB']
+    config.record_net_calls = true
+  else
+    config.fakeweb = true
+    FakeWeb.allow_net_connect = false
   end
+end 
 
-  Before do
-    scenario = @__cucumber_step_mother.instance_variable_get("@current_scenario").instance_variable_get("@name")
-    if NetRecorder.recording?
-      NetRecorder.scope = scenario
-    else
-      FakeWeb.clean_registry
-      NetRecorder.fakeweb(scenario)
-    end
-  end  
+at_exit do
+  if NetRecorder.recording?
+    NetRecorder.cache!
+  end
+end
   
 record mode
   >> rake features RECORD_NET_CALLS=true
