@@ -50,7 +50,7 @@ module NetRecorder
     Net::HTTP.clear_netrecorder_cache!
   end
 
-  def self.register(name)
+  def self.register_scope(name)
     fakeweb(name)
   end
   
@@ -63,7 +63,7 @@ module NetRecorder
     'global'
   end
   
-  private
+private
     
   # load the cache and register all of the urls with fakeweb
   def self.fakeweb(scope='global')
