@@ -61,8 +61,9 @@ private
   # extend NET library to record requests and responses
   def self.record_net_calls
     return if @@configured
+    @@configured = true
+    
     Net::HTTP.extend(NetHTTP)
     Net::HTTPHeader.extend(NetHTTPHeader)
-    @@configured = true
   end
 end

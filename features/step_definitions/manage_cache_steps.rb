@@ -54,7 +54,7 @@ Given /^a cached example page$/ do
 end
 
 Then /^the cache should be empty$/ do
-  NetRecorder.fakes.should == nil
+  NetRecorder.fakes.should == []
 end
 
 Then /^the example entry should have (.+) responses$/ do |count|
