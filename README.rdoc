@@ -34,6 +34,8 @@ Use recorded cache with fakeweb:
     config.fakeweb    = true
   end
 
+---
+
 == Cucumber Example
 
 see http://cukes.info for more info on testing with Cucumber
@@ -60,3 +62,12 @@ record mode (command line)
 
 cache mode (command line)
   >> rake features
+
+---
+
+== Similar projects
+
+=== StaleFish:: http://github.com/jsmestad/stale_fish
+  * Uses fixtures to store netrequests
+  * More configuration options
+  * Configure fixtures to atomically refresh themselves at an interval
