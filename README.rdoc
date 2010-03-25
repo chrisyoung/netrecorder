@@ -63,9 +63,8 @@ cache mode (command line)
 
 == Similar projects
 
-*StaleFish* 
+*StaleFish*:: http://github.com/jsmestad/stale_fish
 
-http://github.com/jsmestad/stale_fish
-* Uses fixtures to store netrequests
-* More configuration options
-* Configure fixtures to atomically refresh themselves at an interval
+Uses fixtures to store netrequests
+More configuration options
+Configure fixtures to atomically refresh themselves at an interval
