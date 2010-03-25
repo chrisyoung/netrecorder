@@ -63,7 +63,7 @@ cache mode (command line)
 
 == Similar projects
 
-  *StaleFish[http://github.com/jsmestad/stale_fish]* 
+  *StaleFish* http://github.com/jsmestad/stale_fish
   
   
 
