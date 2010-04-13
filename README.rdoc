@@ -33,6 +33,30 @@ Use recorded cache with fakeweb:
     config.cache_file = File.join(RAILS_ROOT, 'features', 'support', 'fakeweb')
     config.fakeweb    = true
   end
+  
+== Scopes
+
+Net recorder makes it easy to add a 'scope' to your recordings.  Fakeweb doesn't have a way to name a response.  If you make a request to the same url twice and get a different response both times, fakeweb just stores the responses in an array and returns them in order.  This means that whatever you are testing will have to maintain the order or else you won't get the correct mocked data for your tests.  So netrecorder allows you to set a scope that will be used when registering with fakeweb.
+
+To record using scopes:
+
+  if NetRecorder.recording?
+    NetRecorder.scope = 'first request'
+    # request www.something.com
+    # make a change that alters the return value from www.something.com
+    NetRecorder.scope = "second request"
+    # request www.something.com
+  end
+
+To register the scoped cache with fakeweb:
+
+  if !NetRecorder.recording?
+    
+    # request www.something.com
+    # make a change that alters the return value from www.something.com
+    NetRecorder.scope = "second request"
+    # request www.something.com
+  end
 
 == Cucumber Example
 
