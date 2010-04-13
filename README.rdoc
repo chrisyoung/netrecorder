@@ -36,7 +36,7 @@ Use recorded cache with fakeweb:
   
 == Scopes
 
-Net recorder makes it easy to add a 'scope' to your recordings.  Fakeweb doesn't have a way to name a response.  If you make a request to the same url twice and get a different response both times, fakeweb just stores the responses in an array and returns them in order.  This means that whatever you are testing will have to maintain the order or else you won't get the correct mocked data for your tests.  So netrecorder allows you to set a scope that will be used when registering with fakeweb.
+Net recorder makes it easy to add a 'scope' to your recordings.  Fakeweb doesn't have a way to name a response.  If you make a request to the same url twice and get a different response both times, fakeweb just stores the responses in an array and returns them in order.  This means that whatever you are testing will have to maintain the order or else you won't get the correct mocked data for your tests.  So netrecorder allows you to set a scope that can be used when registering with fakeweb.
 
 To record using scopes:
 
@@ -51,11 +51,8 @@ To record using scopes:
 To register the scoped cache with fakeweb:
 
   if !NetRecorder.recording?
-    
-    # request www.something.com
-    # make a change that alters the return value from www.something.com
-    NetRecorder.scope = "second request"
-    # request www.something.com
+    FakeWeb.clean_registry # This will clear out any previous registrations so that our scope will not be added to the array of reponses
+    NetRecorder.register_scope(scenario.name)
   end
 
 == Cucumber Example
@@ -76,6 +73,16 @@ see http://cukes.info for more info on testing with Cucumber
   at_exit do
     if NetRecorder.recording?
       NetRecorder.cache!
+    end
+  end
+  
+  # Scope all the recordings to the scenario name!
+  Before do |scenario|
+    if NetRecorder.recording?
+      NetRecorder.scope = scenario.name
+    else
+      FakeWeb.clean_registry
+      NetRecorder.register_scope(scenario.name)
     end
   end
 
