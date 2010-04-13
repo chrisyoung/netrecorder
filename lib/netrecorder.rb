@@ -5,6 +5,7 @@ require 'yaml'
 require "#{File.dirname(__FILE__)}/http"
 require "#{File.dirname(__FILE__)}/http_header"
 require "#{File.dirname(__FILE__)}/config"
+require "#{File.dirname(__FILE__)}/fake"
 
 # NetRecorder - the global namespace
 module NetRecorder
@@ -15,11 +16,7 @@ module NetRecorder
   end
   
   def self.fakes
-    if File.exist?(@@config.cache_file)
-      File.open(@@config.cache_file, "r") do |f|
-        YAML.load(f.read)
-      end
-    end || []
+    Fake.to_array(@@config.cache_file)
   end
   
   # configure netrecorder
@@ -68,9 +65,11 @@ private
   # load the cache and register all of the urls with fakeweb
   def self.fakeweb(scope='global')
     fakes.each do |fake|
-      if fake[1][scope]
-        FakeWeb.register_uri(fake[1][scope][:method].downcase.to_sym, fake[0], fake[1][scope][:response]) 
-      end
+      method   = fake[Fake::RESPONSE][scope][:method].downcase.to_sym
+      response = fake[Fake::RESPONSE][scope][:response]
+      request  = fake[Fake::REQUEST]
+
+      FakeWeb.register_uri(method, request, response)
     end
   end
   

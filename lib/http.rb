@@ -15,8 +15,15 @@ module NetRecorder
           scope = NetRecorder.scope || 'global'
           path = "http://#{req.bauth if req.bauth}#{req['host']}#{req.path}"
           
-          existing_fake = @@fakes.detect{|fake| fake[0] == path && fake[1][scope] && fake[1][scope][:method] == req.method}
-          existing_fake[1][scope][:response] << {:response => response} and return response if existing_fake
+          existing_fake = @@fakes.detect do |fake| 
+            fake[Fake::REQUEST] == path && 
+            fake[Fake::RESPONSE][scope] && 
+            fake[Fake::RESPONSE][scope][:method] == req.method
+          end
+          
+          if existing_fake
+            existing_fake[Fake::RESPONSE][scope][:response] << {:response => response} and return response 
+          end
           
           @@fakes << [path, {scope => {:method => req.method, :response => [{:response => response}]}}]
           yield response if block
