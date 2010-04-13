@@ -5,6 +5,7 @@ features/manage_cache.feature
 features/step_definitions/manage_cache_steps.rb
 features/support/env.rb
 lib/config.rb
+lib/fake.rb
 lib/http.rb
 lib/http_header.rb
 lib/netrecorder.rb
