@@ -24,10 +24,12 @@ And /^I save the cache$/ do
 end
 
 And /^I visit "([^\"]*)"$/ do |url|
-  Net::HTTP.get URI.parse(url)
+  uri = URI.parse(url)
+  @last_response = @response
+  @response = Net::HTTP.start(uri.host, uri.port) {|http| http.get('/')}
 end
 
-When /^I visit "([^\"]*)" using a  Net::HTTP request with a block$/ do |url|
+When /^I visit "([^\"]*)" using a Net::HTTP request with a block$/ do |url|
   uri = URI.parse(url)
   @last_response = Net::HTTP.new(uri.host, uri.port).start do |http|
     http.get(uri.path.empty? ? '/' : uri.path)
@@ -71,4 +73,5 @@ end
 Then /^I should not hit the web if i visit the example page$/ do
   FakeWeb.allow_net_connect = false
   Proc.new{Net::HTTP.get URI.parse('http://www.example.com/')}.should_not raise_error
+  FakeWeb.allow_net_connect = true
 end

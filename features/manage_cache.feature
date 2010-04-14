@@ -13,7 +13,7 @@ Scenario: Cache a page
 Scenario: Cache a page with a Net::HTTP request with a block
   Given caching is turned on
   And a clear cache
-  When I visit "http://www.example.com" using a  Net::HTTP request with a block
+  When I visit "http://www.example.com" using a Net::HTTP request with a block
   And I save the cache
   Then the cache should contain the example body
   And the Net::HTTP request should return the response

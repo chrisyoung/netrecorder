@@ -9,7 +9,6 @@ require "#{File.dirname(__FILE__)}/fake"
 
 # NetRecorder - the global namespace
 module NetRecorder
-  
   # the path to the cache file
   def self.cache_file
     @@config.cache_file
@@ -64,11 +63,12 @@ private
     
   # load the cache and register all of the urls with fakeweb
   def self.fakeweb(scope='global')
+    FakeWeb.clean_registry
     fakes.each do |fake|
+      next unless fake[Fake::RESPONSE][scope]
       method   = fake[Fake::RESPONSE][scope][:method].downcase.to_sym
       response = fake[Fake::RESPONSE][scope][:response]
       request  = fake[Fake::REQUEST]
-
       FakeWeb.register_uri(method, request, response)
     end
   end

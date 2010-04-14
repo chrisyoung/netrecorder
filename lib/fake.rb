@@ -1,3 +1,4 @@
+# Helper module to tuck away some ugly file operations
 module Fake
   Fake::REQUEST = 0
   Fake::RESPONSE = 1
