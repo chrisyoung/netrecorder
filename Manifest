@@ -2,7 +2,9 @@ Manifest
 README.rdoc
 Rakefile
 features/manage_cache.feature
+features/manage_scoping.feature
 features/step_definitions/manage_cache_steps.rb
+features/step_definitions/manage_scoping_steps.rb
 features/support/env.rb
 lib/config.rb
 lib/fake.rb
