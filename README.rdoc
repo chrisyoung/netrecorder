@@ -87,7 +87,7 @@ see http://cukes.info for more info on testing with Cucumber
   end
 
 record mode (command line)
-  >> rake features RECORD_NET_CALLS=true
+  >> rake features RECORD_WEB=true
 
 cache mode (command line)
   >> rake features
